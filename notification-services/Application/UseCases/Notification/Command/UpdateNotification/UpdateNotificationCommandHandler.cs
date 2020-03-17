@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using notification_services.Infrastructure;
 using MediatR;
-
+using System.Linq;
 
 namespace notification_services.Application.UseCases.Notification.Command.UpdateNotification
 {
@@ -18,13 +18,17 @@ namespace notification_services.Application.UseCases.Notification.Command.Update
 
         public async Task<UpdateNotificationCommandDto> Handle(UpdateNotificationCommand request, CancellationToken cancellation)
         {
-            var no = _context.Notifs.Find(request.Data.Attributes.Id);
+            var no = _context.Logs.ToList();
+
+            var lo = no.Where(i => i.Notification_Id == request.Data.Attributes.Notification_Id);
+            foreach( var i in request.Data.Attributes.Targets)
+            {
+                var data = lo.First(j => j.Target == i.Id).Id;
+                var dt = await _context.Logs.FindAsync(data);
+                dt.ReadAt = request.Data.Attributes.ReadAt;
+                await _context.SaveChangesAsync(cancellation);
+            }
             
-            no.Title = request.Data.Attributes.Title;
-            no.Message = request.Data.Attributes.Message;
-
-            await _context.SaveChangesAsync(cancellation);
-
             return new UpdateNotificationCommandDto
             {
                 Success = true,

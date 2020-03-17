@@ -22,29 +22,36 @@ namespace notification_services.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<GetNotificationsDto>> GetNotif()
+        public async Task<ActionResult<GetNotificationDto>> GetNotif(string include)
         {
-            return Ok(await _mediatr.Send(new GetNotificationsQuery()));
+            if(include == "logs")
+            {
+                return Ok(await _mediatr.Send(new GetNotificationsQuery()));
+            }
+            else
+            {
+                return Ok(await _mediatr.Send(new GetNotificationsQuery()));
+            }
         }
 
         [HttpPost]
-        public async Task<ActionResult<CreateNotificationCommandDto>> PostNotif([FromBody] CreateNotificationCommand yo)
+        public async Task<ActionResult<CreateNotificationCommandDto>> PostNotif(CreateNotificationCommand yo)
         {
             return Ok(await _mediatr.Send(yo));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetNotificationDto>> GetById(int id)
+        public async Task<ActionResult<GetNotificationDto>> GetById(int id, string include)
         {
             return Ok(await _mediatr.Send(new GetNotificationQuery(id)));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateNotif(int id, UpdateNotificationCommand data)
+        public async Task<IActionResult> UpdateNotif(int id, UpdateNotificationCommand yo)
         {
-            data.Data.Attributes.Id = id;
+            yo.Data.Attributes.Notification_Id = id;
 
-            return Ok(await _mediatr.Send(data));
+            return Ok(await _mediatr.Send(yo));
         }
 
         [HttpDelete("{id}")]

@@ -16,7 +16,7 @@ namespace notification_services.Application.UseCases.Notification.Queries.GetNot
              _context = context;
          }
 
-         public async Task<GetNotificationsDto> Handle(GetNotificationsQuery request, CancellationToken cancellation)
+         public async Task<GetNotificationsDto> Handle(GetNotificatiyonsQuery request, CancellationToken cancellation)
          {
             var data = await _context.Notifs.ToListAsync();
 

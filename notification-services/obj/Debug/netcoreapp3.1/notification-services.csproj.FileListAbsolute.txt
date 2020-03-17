@@ -36,3 +36,7 @@
 /Users/gigaming/bootcamp/RemoteProcedure/notification-services/obj/Debug/netcoreapp3.1/staticwebassets/notification-services.StaticWebAssets.xml
 /Users/gigaming/bootcamp/RemoteProcedure/notification-services/obj/Debug/netcoreapp3.1/notification-services.dll
 /Users/gigaming/bootcamp/RemoteProcedure/notification-services/obj/Debug/netcoreapp3.1/notification-services.pdb
+/Users/gigaming/bootcamp/RemoteProcedure/notification-services/bin/Debug/netcoreapp3.1/MailKit.dll
+/Users/gigaming/bootcamp/RemoteProcedure/notification-services/bin/Debug/netcoreapp3.1/MediatR.Extensions.Microsoft.DependencyInjection.dll
+/Users/gigaming/bootcamp/RemoteProcedure/notification-services/bin/Debug/netcoreapp3.1/MimeKit.dll
+/Users/gigaming/bootcamp/RemoteProcedure/notification-services/bin/Debug/netcoreapp3.1/BouncyCastle.Crypto.dll

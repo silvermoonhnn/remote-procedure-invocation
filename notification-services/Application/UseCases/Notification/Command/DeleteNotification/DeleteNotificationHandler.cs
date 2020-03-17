@@ -17,12 +17,6 @@ namespace notification_services.Application.UseCases.Notification.Command.Delete
         public async Task<DeleteNotificationCommandDto> Handle(DeleteNotificationCommand request, CancellationToken cancellationToken)
         {
             var data = await _context.Notifs.FindAsync(request.Id);
-
-            if (data == null)
-            {
-                return null;
-            }
-
             _context.Notifs.Remove(data);
             await _context.SaveChangesAsync(cancellationToken);
 

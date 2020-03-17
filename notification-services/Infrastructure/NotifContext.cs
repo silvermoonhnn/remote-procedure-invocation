@@ -15,7 +15,7 @@ namespace notification_services.Infrastructure
         {
             model
                 .Entity<LogsEn>()
-                .HasOne(i => i.notif)
+                .HasOne(i => i.Notif)
                 .WithMany()
                 .HasForeignKey(i => i.Notification_Id);
         }

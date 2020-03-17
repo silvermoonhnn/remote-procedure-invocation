@@ -41,6 +41,9 @@ namespace notification_services.Migrations
                     b.Property<DateTime>("ReadAt")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<int>("Target")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Type")
                         .HasColumnType("text");
 
@@ -78,26 +81,6 @@ namespace notification_services.Migrations
                     b.ToTable("Notifs");
                 });
 
-            modelBuilder.Entity("notification_services.Domain.Entities.Target", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Email_Destination")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("LogsEnId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LogsEnId");
-
-                    b.ToTable("Target");
-                });
-
             modelBuilder.Entity("notification_services.Domain.Entities.LogsEn", b =>
                 {
                     b.HasOne("notification_services.Domain.Entities.NotifEn", "notif")
@@ -105,13 +88,6 @@ namespace notification_services.Migrations
                         .HasForeignKey("Notification_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("notification_services.Domain.Entities.Target", b =>
-                {
-                    b.HasOne("notification_services.Domain.Entities.LogsEn", null)
-                        .WithMany("Target")
-                        .HasForeignKey("LogsEnId");
                 });
 #pragma warning restore 612, 618
         }

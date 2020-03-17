@@ -1,9 +1,12 @@
+using System.Reflection;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using notification_services.Application.UseCases.Notification.Queries.GetNotification;
 using notification_services.Infrastructure;
 
 namespace notification_services
@@ -22,6 +25,8 @@ namespace notification_services
         {
             services.AddControllers();
             services.AddDbContext<NotifContext>(options => options.UseNpgsql(Configuration.GetConnectionString("defaultConnection")));
+
+            services.AddMediatR(typeof(GetNotificationQueryHandler).GetTypeInfo().Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -39,9 +39,17 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Mailkit": {
+              "target": "Package",
+              "version": "[2.5.2, )"
+            },
             "MediatR": {
               "target": "Package",
               "version": "[8.0.1, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

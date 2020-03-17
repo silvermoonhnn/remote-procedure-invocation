@@ -22,6 +22,7 @@ namespace user_services.Application.UseCases.Users.Command.CreateUser
                 Name = request.Data.Attributes.Name,
                 Username = request.Data.Attributes.Username,
                 Email = request.Data.Attributes.Email,
+                Password = request.Data.Attributes.Password,
                 Address = request.Data.Attributes.Address
             };
 
