@@ -5,6 +5,7 @@ using notification_services.Application.UseCases.Notification.Command.CreateNoti
 using notification_services.Application.UseCases.Notification.Command.DeleteNotification;
 using notification_services.Application.UseCases.Notification.Command.UpdateNotification;
 using notification_services.Application.UseCases.Notification.Queries.GetNotification;
+using notification_services.Application.UseCases.Notification.Queries.GetNotificationLogs;
 using notification_services.Application.UseCases.Notification.Queries.GetNotifications;
 
 namespace notification_services.Controllers
@@ -26,7 +27,7 @@ namespace notification_services.Controllers
         {
             if(include == "logs")
             {
-                return Ok(await _mediatr.Send(new GetNotificationsQuery()));
+                return Ok(await _mediatr.Send(new GetNotificationLogsQuery()));
             }
             else
             {

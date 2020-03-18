@@ -47,12 +47,12 @@
             "dockerBuild": {
                 "tag": "remoteprocedure:dev",
                 "target": "base",
-                "dockerfile": "${workspaceFolder}/user-services/Dockerfile",
+                "dockerfile": "${workspaceFolder}/notification-services/Dockerfile",
                 "context": "${workspaceFolder}",
                 "pull": true
             },
             "netCore": {
-                "appProject": "${workspaceFolder}/user-services/user-services.csproj"
+                "appProject": "${workspaceFolder}/notification-services/notification-services.csproj"
             }
         },
         {
@@ -63,12 +63,12 @@
             ],
             "dockerBuild": {
                 "tag": "remoteprocedure:latest",
-                "dockerfile": "${workspaceFolder}/user-services/Dockerfile",
+                "dockerfile": "${workspaceFolder}/notification-services/Dockerfile",
                 "context": "${workspaceFolder}",
                 "pull": true
             },
             "netCore": {
-                "appProject": "${workspaceFolder}/user-services/user-services.csproj"
+                "appProject": "${workspaceFolder}/notification-services/notification-services.csproj"
             }
         },
         {
@@ -79,7 +79,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/user-services/user-services.csproj",
+                "appProject": "${workspaceFolder}/notification-services/notification-services.csproj",
                 "enableDebugging": true
             }
         },
@@ -91,7 +91,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/user-services/user-services.csproj"
+                "appProject": "${workspaceFolder}/notification-services/notification-services.csproj"
             }
         }
     ]

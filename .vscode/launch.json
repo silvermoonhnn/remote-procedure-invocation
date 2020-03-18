@@ -36,7 +36,7 @@
             "request": "launch",
             "preLaunchTask": "docker-run: debug",
             "netCore": {
-                "appProject": "${workspaceFolder}/user-services/user-services.csproj"
+                "appProject": "${workspaceFolder}/notification-services/notification-services.csproj"
             }
         }
     ]

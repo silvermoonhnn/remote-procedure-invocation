@@ -28,7 +28,6 @@ namespace user_services
         {
             services.AddControllers();
             services.AddDbContext<UserContext>(options => options.UseNpgsql(Configuration.GetConnectionString("defaultConnection")));
-
             services.AddMediatR(typeof(GetUserQueryHandler).GetTypeInfo().Assembly);
         }
 

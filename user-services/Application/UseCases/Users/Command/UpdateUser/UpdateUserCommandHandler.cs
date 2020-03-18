@@ -23,6 +23,7 @@ namespace user_services.Application.UseCases.Users.Command.UpdateUser
             yo.Name = request.Data.Attributes.Name;
             yo.Username = request.Data.Attributes.Username;
             yo.Email = request.Data.Attributes.Email;
+            yo.Password = request.Data.Attributes.Password;
             yo.Address = request.Data.Attributes.Address;
 
             await _context.SaveChangesAsync(cancellation);

@@ -40,3 +40,4 @@
 /Users/gigaming/bootcamp/RemoteProcedure/user-services/bin/Debug/netcoreapp3.1/MediatR.Extensions.Microsoft.DependencyInjection.dll
 /Users/gigaming/bootcamp/RemoteProcedure/user-services/bin/Debug/netcoreapp3.1/MimeKit.dll
 /Users/gigaming/bootcamp/RemoteProcedure/user-services/bin/Debug/netcoreapp3.1/BouncyCastle.Crypto.dll
+/Users/gigaming/bootcamp/RemoteProcedure/user-services/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll

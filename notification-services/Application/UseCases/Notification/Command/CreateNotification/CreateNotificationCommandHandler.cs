@@ -1,10 +1,15 @@
 using System;
 using System.Threading;
-using MediatR;
 using System.Threading.Tasks;
+using System.Linq;
+using MediatR;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Mail;
+using System.Net;
 using notification_services.Infrastructure;
 using notification_services.Domain.Entities;
-using System.Linq;
 
 namespace notification_services.Application.UseCases.Notification.Command.CreateNotification
 {
@@ -44,6 +49,8 @@ namespace notification_services.Application.UseCases.Notification.Command.Create
                     Target = i.Id,
                     Email_Destination = i.Email_Destination
                 });
+                await _context.SaveChangesAsync();
+                await SendMail("iniemail@email.com", i.Email_Destination, request.Data.Attributes.Title, request.Data.Attributes.Message);
             }
             await _context.SaveChangesAsync();
 
@@ -52,6 +59,24 @@ namespace notification_services.Application.UseCases.Notification.Command.Create
                 Success = true,
                 Message = "Notification successfully created"
             };
+        }
+
+        public async Task<List<UserEn>> GetUserData()
+        {
+            var client = new HttpClient();
+            var data = await client.GetStringAsync("http://user-service/user");
+            return JsonConvert.DeserializeObject<List<UserEn>>(data);
+        }
+
+        public async Task SendMail(string from, string to, string subject, string body)
+        {
+            var client = new SmtpClient("smtp.mailtrap.io", 2525)
+            {
+                Credentials = new NetworkCredential("b0549629350b6a", "b4ff41cb5cfb79"),
+                EnableSsl = true
+            };
+            await client.SendMailAsync(from, to, subject, body);
+            Console.WriteLine("Sent");
         }
     }
 }

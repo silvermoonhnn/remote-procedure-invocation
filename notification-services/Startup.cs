@@ -25,7 +25,6 @@ namespace notification_services
         {
             services.AddControllers();
             services.AddDbContext<NotifContext>(options => options.UseNpgsql(Configuration.GetConnectionString("defaultConnection")));
-
             services.AddMediatR(typeof(GetNotificationQueryHandler).GetTypeInfo().Assembly);
         }
 

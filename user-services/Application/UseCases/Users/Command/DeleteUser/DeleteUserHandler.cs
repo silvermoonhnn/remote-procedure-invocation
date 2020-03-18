@@ -17,12 +17,6 @@ namespace user_services.Application.UseCases.Users.Command.DeleteUser
         public async Task<DeleteUserCommandDto> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
             var data = await _context.Users.FindAsync(request.Id);
-
-            if (data == null)
-            {
-                return null;
-            }
-
             _context.Users.Remove(data);
             await _context.SaveChangesAsync(cancellationToken);
 

@@ -6,6 +6,6 @@ namespace notification_services.Application.UseCases.Notification.Queries.GetNot
 {
     public class GetNotificationsDto : BaseDto
     {
-        public List<DataNotification> Data { get; set; }
+        public List<NoData> Data { get; set; }
     }
 }

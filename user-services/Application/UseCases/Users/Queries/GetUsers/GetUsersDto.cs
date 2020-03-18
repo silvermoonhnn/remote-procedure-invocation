@@ -6,6 +6,6 @@ namespace user_services.Application.UseCases.Users.Queries.GetUsers
 {
     public class GetUsersDto : BaseDto
     {
-        public IList<UserEn> Data { get; set; }
+        public List<UserEn> Data { get; set; }
     }
 }
