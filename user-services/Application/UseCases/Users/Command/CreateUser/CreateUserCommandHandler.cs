@@ -45,7 +45,7 @@ namespace user_services.Application.UseCases.Users.Command.CreateUser
             {
                 Id = user.Id, EmailDestination = user.Email
             };
-
+            
             var po = new UserNo()
             {
                 Title = "This is the title of the massage",
@@ -71,7 +71,6 @@ namespace user_services.Application.UseCases.Users.Command.CreateUser
             }
            
             // var data = new StringContent(convert, Encoding.UTF8, "application/json");
-
             //await client.PostAsync("http://notificationservice/notification", content);
 
             return new CreateUserCommandDto
