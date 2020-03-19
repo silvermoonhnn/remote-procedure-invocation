@@ -55,7 +55,7 @@ namespace notification_services.Application.UseCases.Notification.Queries.GetNot
             {
                 channel.ExchangeDeclare(exchange: "mails", type: ExchangeType.Fanout);
 
-                var ex = channel.QueueDeclare();
+                var ex = channel.QueueDeclare().QueueName;
                 channel.QueueBind(queue: ex, exchange: "mails", routingKey:"");
 
                 Console.WriteLine("Waiting for Message ...");
