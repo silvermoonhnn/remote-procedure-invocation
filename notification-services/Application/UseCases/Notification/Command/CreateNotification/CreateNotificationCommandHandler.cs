@@ -58,31 +58,6 @@ namespace notification_services.Application.UseCases.Notification.Command.Create
             }
             await _context.SaveChangesAsync();
 
-            var factory = new ConnectionFactory() {};
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
-            {
-                channel.ExchangeDeclare(exchange: "mails", type: ExchangeType.Fanout);
-
-                var ex = channel.QueueDeclare().QueueName;
-                channel.QueueBind(queue: ex, exchange: "mails", routingKey:"");
-
-                Console.WriteLine("Waiting for Message ...");
-                var consumer = new EventingBasicConsumer(channel);
-
-                consumer.Received += (sender, a) =>
-                {
-                    var body = a.Body;
-                    var message = Encoding.UTF8.GetString(body);
-
-                    Console.WriteLine($"Message recieved {message}");
-                    channel.BasicAck(deliveryTag: a.DeliveryTag, multiple: false);
-                };
-
-                channel.BasicConsume(queue: ex, autoAck: false, consumer: consumer);
-                Console.ReadLine();
-            }
-
             return new CreateNotificationCommandDto
             {
                 Success = true,

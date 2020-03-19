@@ -55,22 +55,21 @@ namespace user_services.Application.UseCases.Users.Command.CreateUser
                 Targets = new List<Target>() { target } 
             };
 
+            var attributes = new Data<UserNo>() { Attributes = po };
+            var httpContent = new RequestData<UserNo>() { Data = attributes }; 
+            var convert = JsonConvert.SerializeObject(httpContent);
+
             var factory = new ConnectionFactory() { HostName = "localhost" };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
                 channel.ExchangeDeclare(exchange: "notification", type: ExchangeType.Fanout);
-
-                var message = JsonConvert.SerializeObject(po);
-                byte[] body = Encoding.UTF8.GetBytes(message);
-
+                var body = Encoding.UTF8.GetBytes(convert);
                 channel.BasicPublish(exchange: "notification", routingKey: "", basicProperties: null, body: body);
 
-                Console.WriteLine($"Message {message} has sent");
+                Console.WriteLine($"Message has sent");
             }
-            // var attributes = new Data<UserNo>() { Attributes = po };
-            // var httpContent = new RequestData<UserNo>() { Data = attributes }; 
-            // var convert = JsonConvert.SerializeObject(httpContent);
+           
             // var data = new StringContent(convert, Encoding.UTF8, "application/json");
 
             //await client.PostAsync("http://notificationservice/notification", content);
