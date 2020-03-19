@@ -12,6 +12,8 @@ using user_services.Domain.Entities;
 using user_services.Application.UseCases.Users.Model;
 using user_services.Application.Models;
 using Newtonsoft.Json;
+using RabbitMQ.Client;
+using System;
 
 namespace user_services.Application.UseCases.Users.Command.CreateUser
 {
@@ -37,7 +39,7 @@ namespace user_services.Application.UseCases.Users.Command.CreateUser
 
              _context.Users.Add(us);
             await _context.SaveChangesAsync(cancellation);
-
+            
             var user = _context.Users.First(i => i.Username == request.Data.Attributes.Username);
             var target = new Target()
             {
@@ -53,10 +55,23 @@ namespace user_services.Application.UseCases.Users.Command.CreateUser
                 Targets = new List<Target>() { target } 
             };
 
-            var attributes = new Data<UserNo>() { Attributes = po };
-            var httpContent = new RequestData<UserNo>() { Data = attributes }; 
-            var convert = JsonConvert.SerializeObject(httpContent);
-            var data = new StringContent(convert, Encoding.UTF8, "application/json");
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                channel.ExchangeDeclare(exchange: "notification", type: ExchangeType.Fanout);
+
+                var message = JsonConvert.SerializeObject(po);
+                byte[] body = Encoding.UTF8.GetBytes(message);
+
+                channel.BasicPublish(exchange: "notification", routingKey: "", basicProperties: null, body: body);
+
+                Console.WriteLine($"Message {message} has sent");
+            }
+            // var attributes = new Data<UserNo>() { Attributes = po };
+            // var httpContent = new RequestData<UserNo>() { Data = attributes }; 
+            // var convert = JsonConvert.SerializeObject(httpContent);
+            // var data = new StringContent(convert, Encoding.UTF8, "application/json");
 
             //await client.PostAsync("http://notificationservice/notification", content);
 
