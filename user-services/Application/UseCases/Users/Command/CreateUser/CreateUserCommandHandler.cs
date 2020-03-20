@@ -64,6 +64,9 @@ namespace user_services.Application.UseCases.Users.Command.CreateUser
             using (var channel = connection.CreateModel())
             {
                 channel.ExchangeDeclare(exchange: "notification", type: ExchangeType.Fanout);
+                channel.QueueDeclare(queue: "this", durable: true, exclusive: false, autoDelete: false, arguments: null);
+                channel.QueueBind(queue: "this", exchange: "notification", string.Empty);
+                
                 var body = Encoding.UTF8.GetBytes(convert);
                 channel.BasicPublish(exchange: "notification", routingKey: "", basicProperties: null, body: body);
 

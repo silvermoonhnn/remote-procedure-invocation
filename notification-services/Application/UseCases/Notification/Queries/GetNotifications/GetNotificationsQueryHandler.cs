@@ -53,10 +53,10 @@ namespace notification_services.Application.UseCases.Notification.Queries.GetNot
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
-                channel.ExchangeDeclare(exchange: "mails", type: ExchangeType.Fanout);
+                channel.ExchangeDeclare(exchange: "notification", type: ExchangeType.Fanout);
 
-                var ex = channel.QueueDeclare().QueueName;
-                channel.QueueBind(queue: ex, exchange: "mails", routingKey:"");
+                var ex = channel.QueueDeclare();
+                channel.QueueBind(queue: ex, exchange: "notification", routingKey:"");
 
                 Console.WriteLine("Waiting for Message ...");
                 var consumer = new EventingBasicConsumer(channel);
@@ -69,7 +69,7 @@ namespace notification_services.Application.UseCases.Notification.Queries.GetNot
                     await client.PostAsync("http://localhost/notification", content);
                 };
 
-                channel.BasicConsume(queue: ex, autoAck: false, consumer: consumer);
+                channel.BasicConsume(queue: ex, autoAck: true, consumer: consumer);
                 Console.ReadLine();
             }
          }
